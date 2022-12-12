@@ -149,5 +149,5 @@ class GenericProxyApi {
  * @param path add a prefix to all path
  */
 export function buildProxy<T>(apiEngine: ApiRequestable, path = ''): T {
-    return new Proxy(new GenericProxyApi(apiEngine, path), handlerRoot) as T;
+    return new Proxy(new GenericProxyApi(apiEngine, path), handlerRoot) as unknown as T;
 }

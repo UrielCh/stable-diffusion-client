@@ -1,5 +1,6 @@
 import { ApiRequestable } from './common.ts';
 import { buildProxy } from './engine.ts';
+import { SdwApiCaller } from './SdwApiCaller.ts';
 
 /** ArtistItem */
 export interface ArtistItem {
@@ -1942,7 +1943,7 @@ export interface ValidationError {
   type: string;
 }
 
-export interface SDW {
+export interface SDWClient {
   /**
    * get /
    * Main
@@ -2264,11 +2265,3 @@ export interface SDW {
     };
   };
 }
-
-/**
- * END API Models
- */
-export function SDWClient(apiEngine: ApiRequestable): SDW {
-  return buildProxy<SDW>(apiEngine);
-}
-export default SDWClient;
