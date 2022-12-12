@@ -1,4 +1,4 @@
-import { build, emptyDir } from "https://deno.land/x/dnt@0.31.0/mod.ts";
+import { build, emptyDir } from "https://deno.land/x/dnt@0.32.0/mod.ts";
 // check version here: https://www.npmjs.com/package/@u4/chrome-remote-interface
 // deno run -A _build.ts 0.4.8; 
 // cd npm; npm publish;
