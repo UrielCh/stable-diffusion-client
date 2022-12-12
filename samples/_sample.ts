@@ -1,9 +1,6 @@
 import * as pc from "https://deno.land/std@0.160.0/fmt/colors.ts";
-import { SDClientProxy, SDClient, models } from "./mod.ts";
-// import { SDClient, SDModelItem, StableDiffusionProcessingTxt2Img } from "./model.ts"
+import { SDClientProxy, SDClient, models } from "../mod.ts";
 import { decode } from "https://deno.land/std@0.167.0/encoding/base64.ts";
-
-// const a: model.ArtistItem
 
 async function _listSamplers(client: SDClient): Promise<void> {
     const samplers = await client.sdapi.v1.samplers.$get();
@@ -12,14 +9,12 @@ async function _listSamplers(client: SDClient): Promise<void> {
         console.log(` - ${pc.green(sampler.name).padEnd(30, ' ')} config File: ${pc.white(JSON.stringify(sampler.options))}`);
 }
 
-
 async function _listCmdFlags(client: SDClient): Promise<void> {
     const cmdFlags = await client.sdapi.v1["cmd-flags"].$get();
     console.log('cmdFlags models:')
     for (const [cmdFlag, value] of Object.entries(cmdFlags))
         console.log(` - ${pc.green(cmdFlag).padEnd(42, ' ')} config File: ${pc.white(JSON.stringify(value))}`);
 }
-
 
 async function _getActiveModel(client: SDClient): Promise<models.SDModelItem | null> {
     let selectHash = '';
@@ -62,7 +57,7 @@ if (import.meta.main) {
      */
     const body: models.StableDiffusionProcessingTxt2Img = {
         prompt: "a fluffy rabbit with a gun shooting at flying ducks",
-        steps: 10,
+        steps: 25,
         batch_size: 1,
         width: 768,
         height: 768,

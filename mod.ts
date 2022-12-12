@@ -1,8 +1,8 @@
-import { ApiRequestable } from './common.ts';
-import { buildProxy } from './engine.ts';
-import { SimpleDiffusionCaller } from './SimpleDiffusionCaller.ts';
-import { type SDClient } from './interface.ts';
-import * as models from './models.ts';
+import { ApiRequestable } from './src/common.ts';
+import { buildProxy } from './src/engine.ts';
+import { SimpleDiffusionCaller } from './src/SimpleDiffusionCaller.ts';
+import { type SDClient } from './src/interface.ts';
+import * as models from './src/models.ts';
 export { models };
 
 /**
@@ -12,7 +12,7 @@ export { models };
  * ````
  */
 
-export { type SDClient } from './interface.ts'
+export { type SDClient } from './src/interface.ts'
 /**
  * main entry point.
  */
