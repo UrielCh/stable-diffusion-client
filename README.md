@@ -1,6 +1,9 @@
 # sdw_client
 
-stable-diffusion-webui Client writen in Deno first
+
+[stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) is a awesome, and you may want to integrate it right now to your Javascript projects.
+
+stable-diffusion-webui Client writen in Deno first.
 
 ## Sample usage
 
@@ -34,7 +37,7 @@ for (const model of models) {
 
 ```
 
-## start a txt2img generation
+## Start a txt2img generation
 
 ```typescript
 import {SDWClientProxy, type SDWClient} from 'sdg_client';
