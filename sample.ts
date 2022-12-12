@@ -1,8 +1,7 @@
 import { SDModelItem, SDWClient, StableDiffusionProcessingTxt2Img } from "./sdwClient.ts"
 import * as pc from "https://deno.land/std@0.160.0/fmt/colors.ts";
-import { Base64 } from "https://deno.land/x/bb64@1.1.0/mod.ts";
-import { SdwApiCaller } from './SdwApiCaller.ts';
 import SDWClientProxy from "./mod.ts";
+import { decode } from "https://deno.land/std@0.167.0/encoding/base64.ts";
 
 async function _listSamplers(client: SDWClient): Promise<void> {
     const samplers = await client.sdapi.v1.samplers.$get();
@@ -76,8 +75,11 @@ if (import.meta.main) {
         await Deno.writeTextFile(`out/${imgId}.txt`, `info: ${img.info}\nparams: ${JSON.stringify(img.parameters)}\n`);
         if (img.images) {
             for (let i = 0; i < img.images.length; i++) {
+                const base64Image = img.images[i];
                 const fn = `out/${imgId}.${i}.png`;
-                Base64.fromBase64String(img.images[i]).toFile(fn);
+                const byteArray = decode(base64Image)
+                await Deno.writeFile(fn, byteArray);
+                console.log(`write img to ${pc.green(fn)}`)
             }
         }
     }
