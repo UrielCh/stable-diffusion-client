@@ -1,9 +1,11 @@
-import { SDModelItem, SDWClient, StableDiffusionProcessingTxt2Img } from "./sdwClient.ts"
 import * as pc from "https://deno.land/std@0.160.0/fmt/colors.ts";
-import SDWClientProxy from "./mod.ts";
+import { SDClientProxy, SDClient, models } from "./mod.ts";
+// import { SDClient, SDModelItem, StableDiffusionProcessingTxt2Img } from "./model.ts"
 import { decode } from "https://deno.land/std@0.167.0/encoding/base64.ts";
 
-async function _listSamplers(client: SDWClient): Promise<void> {
+// const a: model.ArtistItem
+
+async function _listSamplers(client: models.SDClient): Promise<void> {
     const samplers = await client.sdapi.v1.samplers.$get();
     console.log('Available sampler:')
     for (const sampler of samplers)
@@ -11,7 +13,7 @@ async function _listSamplers(client: SDWClient): Promise<void> {
 }
 
 
-async function _listCmdFlags(client: SDWClient): Promise<void> {
+async function _listCmdFlags(client: SDClient): Promise<void> {
     const cmdFlags = await client.sdapi.v1["cmd-flags"].$get();
     console.log('cmdFlags models:')
     for (const [cmdFlag, value] of Object.entries(cmdFlags))
@@ -19,7 +21,7 @@ async function _listCmdFlags(client: SDWClient): Promise<void> {
 }
 
 
-async function _getActiveModel(client: SDWClient): Promise<SDModelItem | null> {
+async function _getActiveModel(client: SDClient): Promise<models.SDModelItem | null> {
     let selectHash = '';
     const options = await client.sdapi.v1.options.$get();
     const sd_model_checkpoint = options.sd_model_checkpoint || '';
@@ -30,7 +32,7 @@ async function _getActiveModel(client: SDWClient): Promise<SDModelItem | null> {
     }
     const models = await client.sdapi.v1["sd-models"].$get();
     console.log('Available models:')
-    let active: SDModelItem | null = null;
+    let active: models.SDModelItem | null = null;
     for (const model of models) {
         const selected = (selectHash === model.hash);
         if (selected) {
@@ -42,7 +44,7 @@ async function _getActiveModel(client: SDWClient): Promise<SDModelItem | null> {
     return active;
 }
 
-async function _printQueue(client: SDWClient): Promise<void> {
+async function _printQueue(client: SDClient): Promise<void> {
     const status = await client.queue.status.$get();
     console.log(`status ${status.msg} ${pc.yellow(status.queue_eta.toString())}/${pc.yellow(status.queue_size.toString())}`);
     console.log();
@@ -50,7 +52,7 @@ async function _printQueue(client: SDWClient): Promise<void> {
 }
 
 if (import.meta.main) {
-    const client: SDWClient = SDWClientProxy('http://127.0.0.1:7860');
+    const client: SDClient = SDClientProxy('http://127.0.0.1:7860');
     await _listSamplers(client);
     await _listCmdFlags(client);
     const _liveModel = await _getActiveModel(client);
@@ -58,7 +60,7 @@ if (import.meta.main) {
     /**
      * use txt2img
      */
-    const body: StableDiffusionProcessingTxt2Img = {
+    const body: models.StableDiffusionProcessingTxt2Img = {
         prompt: "a fluffy rabbit with a gun shooting at flying ducks",
         steps: 10,
         batch_size: 1,

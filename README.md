@@ -1,5 +1,4 @@
-# sdw_client
-
+# stable-diffusion-client
 
 [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) is a awesome, and you may want to integrate it right now to your Javascript projects.
 
@@ -12,11 +11,11 @@ By default stable-diffusion-webui run on localhost port 7860, it that the case y
 ## List available models
 
 ```typescript
-import {SDWClientProxy, type SDWClient} from 'sdg_client';
+import {SDClientProxy, type SDClient} from 'stable-diffusion-client';
 import { * as pc} from 'picocolors';
 
 // initialize your client
-const client: SDWClient = SDWClientProxy('http://127.0.0.1:7860');
+const client: SDClient = SDClientProxy('http://127.0.0.1:7860');
 // access the stable-diffusion-webui API
 
 let selectHash = '';
@@ -40,7 +39,7 @@ for (const model of models) {
 ## Start a txt2img generation
 
 ```typescript
-import {SDWClientProxy, type SDWClient} from 'sdg_client';
+import {SDClientProxy, type SDClient} from 'sdg_client';
 /**
  * use txt2img
  */

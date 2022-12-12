@@ -32,7 +32,7 @@ try {
         },
         package: {
             // package.json properties
-            name: "stable_diffusion_client",
+            name: "stable-diffusion-client",
             author: "Uriel chemouni <uchemouni@gmail.com>",
             license: "MIT",
             contributors: [
@@ -44,14 +44,14 @@ try {
                 "deno",
                 "typescript",
             ],
-            homepage: "https://github.com/UrielCh/sdw_client",
+            homepage: "https://github.com/UrielCh/stable-diffusion-client",
             version: Deno.args[0],
             repository: {
                 type: "git",
-                url: "git+https://github.com/UrielCh/sdw_client.git",
+                url: "git+https://github.com/UrielCh/stable-diffusion-client.git",
             },
             bugs: {
-                url: "http://github.com/UrielCh/sdw_client/issues",
+                url: "http://github.com/UrielCh/stable-diffusion-client/issues",
             },
             "engine-strict": {
                 node: ">=14"

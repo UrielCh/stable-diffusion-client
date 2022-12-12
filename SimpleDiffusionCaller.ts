@@ -1,6 +1,6 @@
 import { ApiParamsType, ApiRequestable } from "./common.ts";
 
-export class SdwApiCaller implements ApiRequestable {
+export class SimpleDiffusionCaller implements ApiRequestable {
     constructor(private base = 'http://127.0.0.1:7860') {
     }
     async doRequest<T>(httpMethod: string, path: string, _pathTemplate: string, params?: ApiParamsType): Promise<T> {
