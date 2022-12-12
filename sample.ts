@@ -14,8 +14,8 @@ async function _listSamplers(client: SDWClient): Promise<void> {
 async function _listCmdFlags(client: SDWClient): Promise<void> {
     const cmdFlags = await client.sdapi.v1["cmd-flags"].$get();
     console.log('cmdFlags models:')
-    for (const cmdFlag of Object.keys(cmdFlags))
-        console.log(` - ${pc.green(cmdFlag).padEnd(42, ' ')} config File: ${pc.white(JSON.stringify((cmdFlags as any)[cmdFlag]))}`);
+    for (const [cmdFlag, value] of Object.entries(cmdFlags))
+        console.log(` - ${pc.green(cmdFlag).padEnd(42, ' ')} config File: ${pc.white(JSON.stringify(value))}`);
 }
 
 

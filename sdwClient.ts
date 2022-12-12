@@ -1,7 +1,3 @@
-import { ApiRequestable } from './common.ts';
-import { buildProxy } from './engine.ts';
-import { SdwApiCaller } from './SdwApiCaller.ts';
-
 /** ArtistItem */
 export interface ArtistItem {
   /**
