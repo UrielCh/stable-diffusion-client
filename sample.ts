@@ -5,7 +5,7 @@ import { decode } from "https://deno.land/std@0.167.0/encoding/base64.ts";
 
 // const a: model.ArtistItem
 
-async function _listSamplers(client: models.SDClient): Promise<void> {
+async function _listSamplers(client: SDClient): Promise<void> {
     const samplers = await client.sdapi.v1.samplers.$get();
     console.log('Available sampler:')
     for (const sampler of samplers)
