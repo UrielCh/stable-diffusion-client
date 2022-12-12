@@ -31,7 +31,7 @@ export class SdwApiCaller implements ApiRequestable {
         const contentType = req.headers.get('content-type');
         if (contentType === 'application/json') {
             const resp = await req.json();
-            return resp;
+            return resp as Promise<T>;
         }
         throw Error(`return type ${contentType} not implemented yet`)
     }
