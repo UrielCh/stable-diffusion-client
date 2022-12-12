@@ -17,15 +17,15 @@ try {
             // see JS docs for overview and more options
             deno: true,
             undici: true,
-            timers: true,
-            custom: [
-                {
-                    package: {
-                        name: "stream/web",
-                    },
-                    globalNames: ["ReadableStream", "TransformStream"],
-                },
-            ],
+            // timers: true,
+            // custom: [
+            //     {
+            //         package: {
+            //             name: "stream/web",
+            //         },
+            //         globalNames: ["ReadableStream", "TransformStream"],
+            //     },
+            // ],
         },
         compilerOptions: {
             lib: ["dom", "esnext"],
