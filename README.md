@@ -36,7 +36,6 @@ for (const model of models) {
 
 ## start a txt2img generation
 
-
 ```typescript
 import {SDWClientProxy, type SDWClient} from 'sdg_client';
 /**
@@ -59,8 +58,11 @@ for (let k = 0; k < 1; k++) {
     await Deno.writeTextFile(`out/${imgId}.txt`, `info: ${img.info}\nparams: ${JSON.stringify(img.parameters)}\n`);
     if (img.images) {
         for (let i = 0; i < img.images.length; i++) {
+            const base64Image = img.images[i];
             const fn = `out/${imgId}.${i}.png`;
-            Base64.fromBase64String(img.images[i]).toFile(fn);
+            const byteArray = decode(base64Image)
+            await Deno.writeFile(fn, byteArray);
+            console.log(`write img to ${pc.green(fn)}`)
         }
     }
 }

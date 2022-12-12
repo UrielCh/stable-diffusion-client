@@ -5,12 +5,14 @@ import { SDWClient } from './sdwClient.ts';
 
 /**
  * 
- * @module
+ * ````typescript
+ * import {SDWClientProxy, type SDWClient} from 'sdg_client';
+ * ````
  */
 
 export { type SDWClient } from './sdwClient.ts'
 /**
- * END API Models
+ * main entry point.
  */
 export function SDWClientProxy(apiEngine: ApiRequestable | string = 'http://127.0.0.1:7860'): SDWClient {
     if (typeof apiEngine === 'string') {
