@@ -1,7 +1,7 @@
 import { ApiRequestable } from './common.ts';
 import { buildProxy } from './engine.ts';
-import { SdwApiCaller } from './SdwApiCaller.ts';
-import { SDWClient } from './sdwClient.ts';
+import { SdwApiCaller } from './SdApiCaller.ts';
+import { type SDClient } from './model.ts';
 
 /**
  * 
@@ -10,16 +10,16 @@ import { SDWClient } from './sdwClient.ts';
  * ````
  */
 
-export { type SDWClient } from './sdwClient.ts'
+export { type SDClient } from './model.ts'
 /**
  * main entry point.
  */
-export function SDWClientProxy(apiEngine: ApiRequestable | string = 'http://127.0.0.1:7860'): SDWClient {
+export function SDClientProxy(apiEngine: ApiRequestable | string = 'http://127.0.0.1:7860'): SDClient {
     if (typeof apiEngine === 'string') {
         apiEngine = new SdwApiCaller(apiEngine);
     }
-    return buildProxy<SDWClient>(apiEngine);
+    return buildProxy<SDClient>(apiEngine);
 }
-export default SDWClientProxy;
+export default SDClientProxy;
 
 

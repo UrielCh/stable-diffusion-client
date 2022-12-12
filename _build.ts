@@ -32,7 +32,7 @@ try {
         },
         package: {
             // package.json properties
-            name: " sdw_client",
+            name: "stable_diffusion_client",
             author: "Uriel chemouni <uchemouni@gmail.com>",
             license: "MIT",
             contributors: [

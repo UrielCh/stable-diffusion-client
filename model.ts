@@ -1939,7 +1939,7 @@ export interface ValidationError {
   type: string;
 }
 
-export interface SDWClient {
+export interface SDClient {
   /**
    * get /
    * Main
