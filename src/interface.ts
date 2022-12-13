@@ -1,4 +1,4 @@
-import * as t from './models.ts';
+import * as SDModels from './SDModels.ts';
 
 export interface SDClient {
     /**
@@ -49,7 +49,7 @@ export interface SDClient {
          * post /login
          * Login
          */
-        $postx(body: t.Body_login_login_post): Promise<unknown>;
+        $postx(body: SDModels.Body_login_login_post): Promise<unknown>;
     };
     /* Path: /config */
     config: {
@@ -106,7 +106,7 @@ export interface SDClient {
          * post /reset
          * Reset Iterator
          */
-        $post(body: t.ResetBody): Promise<unknown>;
+        $post(body: SDModels.ResetBody): Promise<unknown>;
     };
     /* Path: /api */
     api: {
@@ -116,7 +116,7 @@ export interface SDClient {
              * post /api/{api_name}
              * Predict
              */
-            $post(body: t.PredictBody): Promise<unknown>;
+            $post(body: SDModels.PredictBody): Promise<unknown>;
         };
     };
     /* Path: /run */
@@ -127,7 +127,7 @@ export interface SDClient {
              * post /run/{api_name}
              * Predict
              */
-            $post(body: t.PredictBody): Promise<unknown>;
+            $post(body: SDModels.PredictBody): Promise<unknown>;
         };
     };
     /* Path: /queue */
@@ -138,7 +138,7 @@ export interface SDClient {
              * get /queue/status
              * Get Queue Status
              */
-            $get(): Promise<t.Estimation>;
+            $get(): Promise<SDModels.Estimation>;
         };
     };
     /* Path: /startup-events */
@@ -159,7 +159,7 @@ export interface SDClient {
                  * post /sdapi/v1/txt2img
                  * Text2Imgapi
                  */
-                $post(body: t.StableDiffusionProcessingTxt2Img): Promise<t.TextToImageResponse>;
+                $post(body: SDModels.StableDiffusionProcessingTxt2Img): Promise<SDModels.TextToImageResponse>;
             };
             /* Path: /sdapi/v1/img2img */
             img2img: {
@@ -167,7 +167,7 @@ export interface SDClient {
                  * post /sdapi/v1/img2img
                  * Img2Imgapi
                  */
-                $post(body: t.StableDiffusionProcessingImg2Img): Promise<t.ImageToImageResponse>;
+                $post(body: SDModels.StableDiffusionProcessingImg2Img): Promise<SDModels.ImageToImageResponse>;
             };
             /* Path: /sdapi/v1/extra-single-image */
             "extra-single-image": {
@@ -175,7 +175,7 @@ export interface SDClient {
                  * post /sdapi/v1/extra-single-image
                  * Extras Single Image Api
                  */
-                $post(body: t.ExtrasSingleImageRequest): Promise<t.ExtrasSingleImageResponse>;
+                $post(body: SDModels.ExtrasSingleImageRequest): Promise<SDModels.ExtrasSingleImageResponse>;
             };
             /* Path: /sdapi/v1/extra-batch-images */
             "extra-batch-images": {
@@ -183,7 +183,7 @@ export interface SDClient {
                  * post /sdapi/v1/extra-batch-images
                  * Extras Batch Images Api
                  */
-                $post(body: t.ExtrasBatchImagesRequest): Promise<t.ExtrasBatchImagesResponse>;
+                $post(body: SDModels.ExtrasBatchImagesRequest): Promise<SDModels.ExtrasBatchImagesResponse>;
             };
             /* Path: /sdapi/v1/png-info */
             "png-info": {
@@ -191,7 +191,7 @@ export interface SDClient {
                  * post /sdapi/v1/png-info
                  * Pnginfoapi
                  */
-                $post(body: t.PNGInfoRequest): Promise<t.PNGInfoResponse>;
+                $post(body: SDModels.PNGInfoRequest): Promise<SDModels.PNGInfoResponse>;
             };
             /* Path: /sdapi/v1/progress */
             progress: {
@@ -199,7 +199,7 @@ export interface SDClient {
                  * get /sdapi/v1/progress
                  * Progressapi
                  */
-                $get(): Promise<t.ProgressResponse>;
+                $get(): Promise<SDModels.ProgressResponse>;
             };
             /* Path: /sdapi/v1/interrogate */
             interrogate: {
@@ -207,7 +207,7 @@ export interface SDClient {
                  * post /sdapi/v1/interrogate
                  * Interrogateapi
                  */
-                $post(body: t.InterrogateRequest): Promise<unknown>;
+                $post(body: SDModels.InterrogateRequest): Promise<unknown>;
             };
             /* Path: /sdapi/v1/interrupt */
             interrupt: {
@@ -231,7 +231,7 @@ export interface SDClient {
                  * get /sdapi/v1/options
                  * Get Config
                  */
-                $get(): Promise<t.Options>;
+                $get(): Promise<SDModels.Options>;
                 /**
                  * post /sdapi/v1/options
                  * Set Config
@@ -245,7 +245,7 @@ export interface SDClient {
                  * get /sdapi/v1/cmd-flags
                  * Get Cmd Flags
                  */
-                $get(): Promise<t.Flags>;
+                $get(): Promise<SDModels.Flags>;
             };
             /* Path: /sdapi/v1/samplers */
             samplers: {
@@ -253,7 +253,7 @@ export interface SDClient {
                  * get /sdapi/v1/samplers
                  * Get Samplers
                  */
-                $get(): Promise<Array<t.SamplerItem>>;
+                $get(): Promise<Array<SDModels.SamplerItem>>;
             };
             /* Path: /sdapi/v1/upscalers */
             upscalers: {
@@ -261,7 +261,7 @@ export interface SDClient {
                  * get /sdapi/v1/upscalers
                  * Get Upscalers
                  */
-                $get(): Promise<Array<t.UpscalerItem>>;
+                $get(): Promise<Array<SDModels.UpscalerItem>>;
             };
             /* Path: /sdapi/v1/sd-models */
             "sd-models": {
@@ -269,7 +269,7 @@ export interface SDClient {
                  * get /sdapi/v1/sd-models
                  * Get Sd Models
                  */
-                $get(): Promise<Array<t.SDModelItem>>;
+                $get(): Promise<Array<SDModels.SDModelItem>>;
             };
             /* Path: /sdapi/v1/hypernetworks */
             hypernetworks: {
@@ -277,7 +277,7 @@ export interface SDClient {
                  * get /sdapi/v1/hypernetworks
                  * Get Hypernetworks
                  */
-                $get(): Promise<Array<t.HypernetworkItem>>;
+                $get(): Promise<Array<SDModels.HypernetworkItem>>;
             };
             /* Path: /sdapi/v1/face-restorers */
             "face-restorers": {
@@ -285,7 +285,7 @@ export interface SDClient {
                  * get /sdapi/v1/face-restorers
                  * Get Face Restorers
                  */
-                $get(): Promise<Array<t.FaceRestorerItem>>;
+                $get(): Promise<Array<SDModels.FaceRestorerItem>>;
             };
             /* Path: /sdapi/v1/realesrgan-models */
             "realesrgan-models": {
@@ -293,7 +293,7 @@ export interface SDClient {
                  * get /sdapi/v1/realesrgan-models
                  * Get Realesrgan Models
                  */
-                $get(): Promise<Array<t.RealesrganItem>>;
+                $get(): Promise<Array<SDModels.RealesrganItem>>;
             };
             /* Path: /sdapi/v1/prompt-styles */
             "prompt-styles": {
@@ -301,7 +301,7 @@ export interface SDClient {
                  * get /sdapi/v1/prompt-styles
                  * Get Promp Styles
                  */
-                $get(): Promise<Array<t.PromptStyleItem>>;
+                $get(): Promise<Array<SDModels.PromptStyleItem>>;
             };
             /* Path: /sdapi/v1/artist-categories */
             "artist-categories": {
@@ -317,7 +317,7 @@ export interface SDClient {
                  * get /sdapi/v1/artists
                  * Get Artists
                  */
-                $get(): Promise<Array<t.ArtistItem>>;
+                $get(): Promise<Array<SDModels.ArtistItem>>;
             };
         };
     };

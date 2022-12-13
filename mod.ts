@@ -2,8 +2,10 @@ import { ApiRequestable } from './src/common.ts';
 import { buildProxy } from './src/engine.ts';
 import { SimpleDiffusionCaller } from './src/SimpleDiffusionCaller.ts';
 import { type SDClient } from './src/interface.ts';
-import * as models from './src/models.ts';
-export { models };
+import type * as SDModels from './src/SDModels.ts';
+export { SDModels };
+export { SDHelper } from './src/SDHelper.ts';
+
 
 /**
  * 

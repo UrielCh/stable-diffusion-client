@@ -1494,7 +1494,7 @@ export interface PredictBody {
   /**
    * Data
    */
-  data: string[];
+  data: Array<boolean | number | string>;
   /**
    * Fn Index
    */

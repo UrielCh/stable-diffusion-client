@@ -5,7 +5,6 @@ export class SimpleDiffusionCaller implements ApiRequestable {
     }
     async doRequest<T>(httpMethod: string, path: string, _pathTemplate: string, params?: ApiParamsType): Promise<T> {
         httpMethod = httpMethod.toUpperCase();
-
         let url = `${this.base}${path}`;
         const headers: string[][] = [["User-Agent", "Deno SD APi/0.0"], ["Accept", "application/json"]];
         const option: RequestInit = {
@@ -32,6 +31,10 @@ export class SimpleDiffusionCaller implements ApiRequestable {
         if (contentType === 'application/json') {
             const resp = await req.json();
             return resp as Promise<T>;
+        }
+        if (contentType === 'text/plain; charset=utf-8') {
+            const resp = await req.text();
+            return resp as unknown as Promise<T>;
         }
         throw Error(`return type ${contentType} not implemented yet`)
     }

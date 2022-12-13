@@ -8,7 +8,24 @@ stable-diffusion-webui Client writen in Deno first.
 
 By default stable-diffusion-webui run on localhost port 7860, it that the case you can omit the entry point: 'http://127.0.0.1:7860'
 
-## List available models
+stable-diffusion-client contains a lowlevel RESP API named `SDClient` and a higer level API named `SDHelper`
+
+
+## List available models using SDHelper
+
+```ts
+import {SDClientProxy, type SDClientm, SDHelper} from 'stable-diffusion-client';
+import { * as pc} from 'picocolors';
+
+const client: SDClient = SDClientProxy('http://127.0.0.1:7860');
+const helper = new SDHelper(client);
+
+const { selected, list } = await helper.getModels();
+console.log(`${list.length} Model available, Selected model is: ${helper.model_name}`);
+```
+
+
+## List available models using SDClient
 
 ```typescript
 import {SDClientProxy, type SDClient} from 'stable-diffusion-client';
@@ -36,7 +53,7 @@ for (const model of models) {
 
 ```
 
-## Start a txt2img generation
+## Start a txt2img generation using SDClient
 
 ```typescript
 import {SDClientProxy, type SDClient} from 'sdg_client';
