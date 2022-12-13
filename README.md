@@ -20,7 +20,7 @@ stable-diffusion-client contains a lowlevel RESP API named `SDClient` and a hige
 ## List available models using Helper
 
 ```ts
-import { SDHelper } from 'https://deno.land/x/stable_diffusion_client/mod.ts';
+import SDHelper from 'https://deno.land/x/stable_diffusion_client/mod.ts';
 import { * as pc } from 'https://deno.land/std@0.167.0/fmt/colors.ts';
 
 const helper = new SDHelper('http://127.0.0.1:7860');
@@ -32,8 +32,8 @@ console.log(`${list.length} Model available, Selected model is: ${helper.model_n
 
 ## List available models using SDClient
 
-```typescript
-import { SDHelper } from 'https://deno.land/x/stable_diffusion_client/mod.ts';
+```ts
+import SDHelper from 'https://deno.land/x/stable_diffusion_client/mod.ts';
 import { * as pc } from 'https://deno.land/std@0.167.0/fmt/colors.ts';
 
 // initialize your client
@@ -59,13 +59,12 @@ for (const model of models) {
 
 ```
 
-## Start a txt2img generation using SDClient
+## Start a txt2img generation using Helper
 
-```typescript
+```ts
 import { SDHelper } from 'https://deno.land/x/stable_diffusion_client/mod.ts';
 
 const helper = new SDHelper('http://127.0.0.1:7860');
-const client = helper.client;
 
 /**
  * use txt2img
@@ -81,16 +80,14 @@ const body: StableDiffusionProcessingTxt2Img = {
 };
 Deno.mkdirSync('out', { recursive: true });
 for (let k = 0; k < 1; k++) {
-    const img = await client.sdapi.v1.txt2img.$post(body);
+    const img = await helper.txt2img(body);
     const imgId = Date.now();
     console.log(`request ${imgId} done`);
     await Deno.writeTextFile(`out/${imgId}.txt`, `info: ${img.info}\nparams: ${JSON.stringify(img.parameters)}\n`);
     if (img.images) {
         for (let i = 0; i < img.images.length; i++) {
-            const base64Image = img.images[i];
             const fn = `out/${imgId}.${i}.png`;
-            const byteArray = decode(base64Image)
-            await Deno.writeFile(fn, byteArray);
+            await Deno.writeFile(fn, img.images[i]);
             console.log(`write img to ${pc.green(fn)}`)
         }
     }

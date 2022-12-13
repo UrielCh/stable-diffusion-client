@@ -1,5 +1,5 @@
 import * as pc from "https://deno.land/std@0.167.0/fmt/colors.ts";
-import { SDHelper, SDModels } from "../mod.ts";
+import SDHelper from "../mod.ts";
 import { showActiveModel } from "./helper.ts";
 export const SD_V2 = { hash: '2c02b20a', sd_vae: 'auto' };
 export const SD_V2_1 = { hash: '4bdfc29c', sd_vae: 'auto' };
@@ -45,18 +45,17 @@ if (import.meta.main) {
     const variantes = ['brocolis', 'mushroom', 'pinaple', 'cheese', 'tomatoes']
     const imgId = Date.now().toString().slice(0, -4);
     for (const variante of variantes) {
-        const body: SDModels.StableDiffusionProcessingTxt2Img = {
-            prompt: `A pizza with ${variante}, delicious, HD`,
-            steps: 25,
-            batch_size: 1,
-            width: 768,
-            height: 768,
-            cfg_scale: 7,
-            sampler_name: "Euler a",
-        };
         Deno.mkdirSync('out', { recursive: true });
         for (let k = 0; k < 1; k++) {
-            const img = await helper.txt2img(body);
+            const img = await helper.txt2img({
+                prompt: `A pizza with ${variante}, delicious, HD`,
+                steps: 25,
+                batch_size: 1,
+                width: 768,
+                height: 768,
+                cfg_scale: 7,
+                sampler_name: "Euler a",
+            });
             const fn = `${imgId}-${k}-pizza-${variante}`;
             console.log(`request ${fn} done`);
             console.log(JSON.stringify(img.parameters, undefined, 2));
