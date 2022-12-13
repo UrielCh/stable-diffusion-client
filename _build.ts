@@ -63,7 +63,12 @@ try {
     console.log('extra build steps');
     console.log('cwd:', Deno.cwd());
     Deno.copyFileSync("LICENSE", "npm/LICENSE");
-    Deno.copyFileSync("README.md", "npm/README.md");
+
+    let readme = Deno.readTextFileSync("README.md");
+    readme = readme.replaceAll('https://deno.land/x/stable_diffusion_client/mod.ts', 'stable-diffusion-client');
+    readme = readme.replaceAll('https://deno.land/std@0.167.0/fmt/colors.ts', 'picocolors');
+
+    Deno.writeTextFileSync("npm/README.md", readme);
     // Deno.mkdirSync("npm/types/types");
     // const files = Deno.readDirSync("types");
     // for (const file of files) {

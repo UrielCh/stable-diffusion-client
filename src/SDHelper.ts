@@ -1,5 +1,9 @@
-import { SDClient } from "../mod.ts";
+import { type SDClient } from './interface.ts';
 import type * as SDModels from './SDModels.ts';
+import { decode } from "https://deno.land/std@0.167.0/encoding/base64.ts";
+import { ApiRequestable } from "./common.ts";
+import { SimpleDiffusionCaller } from "./SimpleDiffusionCaller.ts";
+import { buildProxy } from "./engine.ts";
 
 export type ChangeModelResp = [
     {
@@ -22,9 +26,27 @@ export interface PredictResponse<T> {
     average_duration: number;
 }
 
+/**
+ * main entry point.
+ */
+function SDClientProxy(apiEngine: ApiRequestable | string = 'http://127.0.0.1:7860'): SDClient {
+    if (typeof apiEngine === 'string') {
+        apiEngine = new SimpleDiffusionCaller(apiEngine);
+    }
+    return buildProxy<SDClient>(apiEngine);
+}
+
 export class SDHelper {
-    public readonly session_hash;
-    constructor(public readonly client: SDClient, session_hash?: string) {
+    public readonly client: SDClient;
+    public readonly session_hash: string;
+    constructor(client?: SDClient | string, session_hash?: string) {
+        if (!client) {
+            this.client = SDClientProxy();
+        } else if (typeof client === 'string') {
+            this.client = SDClientProxy(client);
+        } else {
+            this.client = client;
+        }
         this.session_hash = session_hash || Math.random().toString(36).split('.')[1];
     }
 
@@ -45,8 +67,6 @@ export class SDHelper {
         }
         return result;
     }
-
-
 
     /**
      * MTD 116
@@ -116,9 +136,6 @@ export class SDHelper {
         return result;
     }
 
-
-
-
     getCurrentOptions(): Promise<SDModels.Options> {
         return this.client.sdapi.v1.options.$get()
     }
@@ -141,4 +158,15 @@ export class SDHelper {
         return { selected, list };
     }
 
+    /**
+     * call txt2image and return image as buffer
+     */
+    async txt2img(request: SDModels.StableDiffusionProcessingTxt2Img): Promise<{ images?: Uint8Array[], parameters: SDModels.StableDiffusionProcessingTxt2Img, info: string }> {
+        const img = await this.client.sdapi.v1.txt2img.$post(request);
+        return {
+            images: (img.images || []).map(b64 => decode(b64)),
+            parameters: img.parameters,
+            info: img.info,
+        };
+    }
 }

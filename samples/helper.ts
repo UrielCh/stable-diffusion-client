@@ -1,4 +1,4 @@
-import * as pc from "https://deno.land/std@0.160.0/fmt/colors.ts";
+import * as pc from "https://deno.land/std@0.167.0/fmt/colors.ts";
 import { SDModels, SDHelper } from "../mod.ts";
 
 /**

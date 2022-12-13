@@ -8,17 +8,22 @@ stable-diffusion-webui Client writen in Deno first.
 
 By default stable-diffusion-webui run on localhost port 7860, it that the case you can omit the entry point: 'http://127.0.0.1:7860'
 
-stable-diffusion-client contains a lowlevel RESP API named `SDClient` and a higer level API named `SDHelper`
+API are disabled by default to enable APIs add in COMMANDLINE_ARGS:
+- `--api` to enable API access
+- `--server-name=0.0.0.0` to access stable-diffusion-webui from a remote host
+
+> set COMMANDLINE_ARGS=--xformers --api --server-name=0.0.0.0
+
+stable-diffusion-client contains a lowlevel RESP API named `SDClient` and a higer level API named `SDHelper`, access the SDClient via `SDHelper.client`.
 
 
-## List available models using SDHelper
+## List available models using Helper
 
 ```ts
-import {SDClientProxy, type SDClientm, SDHelper} from 'stable-diffusion-client';
-import { * as pc} from 'picocolors';
+import { SDHelper } from 'https://deno.land/x/stable_diffusion_client/mod.ts';
+import { * as pc } from 'https://deno.land/std@0.167.0/fmt/colors.ts';
 
-const client: SDClient = SDClientProxy('http://127.0.0.1:7860');
-const helper = new SDHelper(client);
+const helper = new SDHelper('http://127.0.0.1:7860');
 
 const { selected, list } = await helper.getModels();
 console.log(`${list.length} Model available, Selected model is: ${helper.model_name}`);
@@ -28,11 +33,12 @@ console.log(`${list.length} Model available, Selected model is: ${helper.model_n
 ## List available models using SDClient
 
 ```typescript
-import {SDClientProxy, type SDClient} from 'stable-diffusion-client';
-import { * as pc} from 'picocolors';
+import { SDHelper } from 'https://deno.land/x/stable_diffusion_client/mod.ts';
+import { * as pc } from 'https://deno.land/std@0.167.0/fmt/colors.ts';
 
 // initialize your client
-const client: SDClient = SDClientProxy('http://127.0.0.1:7860');
+const helper = new SDHelper('http://127.0.0.1:7860');
+const client = helper.client;
 // access the stable-diffusion-webui API
 
 let selectHash = '';
@@ -56,7 +62,11 @@ for (const model of models) {
 ## Start a txt2img generation using SDClient
 
 ```typescript
-import {SDClientProxy, type SDClient} from 'sdg_client';
+import { SDHelper } from 'https://deno.land/x/stable_diffusion_client/mod.ts';
+
+const helper = new SDHelper('http://127.0.0.1:7860');
+const client = helper.client;
+
 /**
  * use txt2img
  */

@@ -1,16 +1,13 @@
-import * as pc from "https://deno.land/std@0.160.0/fmt/colors.ts";
-import { SDClientProxy, SDClient, SDHelper, SDModels } from "../mod.ts";
+import * as pc from "https://deno.land/std@0.167.0/fmt/colors.ts";
+import { SDHelper, SDModels } from "../mod.ts";
 import { showActiveModel } from "./helper.ts";
-import { decode } from "https://deno.land/std@0.167.0/encoding/base64.ts";
-
 export const SD_V2 = { hash: '2c02b20a', sd_vae: 'auto' };
 export const SD_V2_1 = { hash: '4bdfc29c', sd_vae: 'auto' };
 export const Anything3 = { hash: '2700c435', sd_vae: 'Anything-V3.0.vae' };
 
 if (import.meta.main) {
     const SDModel = SD_V2_1;
-    const client: SDClient = SDClientProxy('http://127.0.0.1:7860');
-    const helper = new SDHelper(client);
+    const helper = new SDHelper('http://127.0.0.1:7860');
 
     // const html1 = await helper.getHtml115();
     // console.log(html1.data);
@@ -45,9 +42,7 @@ if (import.meta.main) {
     /**
      * use txt2img
      */
-
     const variantes = ['brocolis', 'mushroom', 'pinaple', 'cheese', 'tomatoes']
-
     const imgId = Date.now().toString().slice(0, -4);
     for (const variante of variantes) {
         const body: SDModels.StableDiffusionProcessingTxt2Img = {
@@ -61,17 +56,15 @@ if (import.meta.main) {
         };
         Deno.mkdirSync('out', { recursive: true });
         for (let k = 0; k < 1; k++) {
-            const img = await client.sdapi.v1.txt2img.$post(body);
+            const img = await helper.txt2img(body);
             const fn = `${imgId}-${k}-pizza-${variante}`;
             console.log(`request ${fn} done`);
-            console.log(JSON.stringify(img, undefined, 2));
+            console.log(JSON.stringify(img.parameters, undefined, 2));
             await Deno.writeTextFile(`out/${fn}.txt`, `info: ${img.info}\nparams: ${JSON.stringify(img.parameters)}\n`);
             if (img.images) {
                 for (let i = 0; i < img.images.length; i++) {
-                    const base64Image = img.images[i];
                     const imgName = `out/${fn}.${i}.png`;
-                    const byteArray = decode(base64Image)
-                    await Deno.writeFile(imgName, byteArray);
+                    await Deno.writeFile(imgName, img.images[i]);
                     console.log(`write img to ${pc.green(imgName)}`)
                 }
             }

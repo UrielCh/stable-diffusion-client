@@ -1,5 +1,5 @@
-import * as pc from "https://deno.land/std@0.160.0/fmt/colors.ts";
-import { SDClientProxy, SDClient, SDModels, SDHelper } from "../mod.ts";
+import * as pc from "https://deno.land/std@0.167.0/fmt/colors.ts";
+import { SDClient, SDModels, SDHelper } from "../mod.ts";
 import { decode } from "https://deno.land/std@0.167.0/encoding/base64.ts";
 import { showActiveModel } from './helper.ts';
 
@@ -24,8 +24,8 @@ async function _printQueue(client: SDClient): Promise<void> {
 }
 
 if (import.meta.main) {
-    const client: SDClient = SDClientProxy('http://127.0.0.1:7860');
-    const helper = new SDHelper(client);
+    const helper = new SDHelper('http://127.0.0.1:7860');
+    const client = helper.client;
     await _listSamplers(client);
     await _listCmdFlags(client);
     const _liveModel = await showActiveModel(helper);

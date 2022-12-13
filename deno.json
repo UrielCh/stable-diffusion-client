@@ -1,5 +1,5 @@
 {
     "tasks": {
-        "dnt": "deno run -A _build.ts 0.0.2 && echo 'to publish:' && echo 'cd npm; npm publish'"
+        "dnt": "deno run -A _build.ts 0.0.3 && echo 'to publish:' && echo 'cd npm; npm publish'"
     }
 }
