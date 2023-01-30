@@ -69,6 +69,43 @@ export interface Body_login_login_post {
    */
   client_secret?: string;
 }
+
+/** Embeddings */
+export interface Embeddings {
+  /**
+   * Loaded embeddings
+   */
+  loaded: Record<string, EmbeddingItem>;
+  /**
+   * Skipped embeddings
+   */
+  skipped: Record<string, EmbeddingItem>;
+}
+
+/** EmbeddingItem */
+export interface EmbeddingItem {
+  /**
+   * Step
+   */
+  step?: number;
+  /**
+   * SD Checkpoint
+   */
+  sd_checkpoint?: string;
+  /**
+   * SD Checkpoint Name
+   */
+  sd_checkpoint_name?: string;
+  /**
+   * Embedding shape
+   */
+  shape: number;
+  /**
+   * Embedding vectors
+   */
+  vectors: number;
+}
+
 /** Estimation */
 export interface Estimation {
   /**

@@ -319,6 +319,14 @@ export interface SDClient {
                  */
                 $get(): Promise<Array<SDModels.ArtistItem>>;
             };
+            /* Path: /sdapi/v1/embeddings */
+            embeddings: {
+                /**
+                 * get /sdapi/v1/embeddings
+                 * Get Embeddings
+                 */
+                $get(): Promise<SDModels.Embeddings>;
+            };
         };
     };
 }
