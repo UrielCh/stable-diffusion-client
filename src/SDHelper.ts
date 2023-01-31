@@ -169,4 +169,16 @@ export class SDHelper {
             info: img.info,
         };
     }
+
+    /**
+     * call img2img and return image as buffer
+     */
+    async img2img(request: SDModels.StableDiffusionProcessingImg2Img): Promise<{ images?: Uint8Array[], parameters: SDModels.StableDiffusionProcessingImg2Img, info: string }> {
+        const img = await this.client.sdapi.v1.img2img.$post(request);
+        return {
+            images: (img.images || []).map(b64 => decode(b64)),
+            parameters: img.parameters,
+            info: img.info,
+        };
+    }
 }
