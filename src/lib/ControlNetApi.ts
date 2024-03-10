@@ -1,8 +1,8 @@
-import { ControlNetDetectOptions } from "../types/index.ts";
+import { ControlNetDetectOptions } from "../types.ts";
 import { toBase64 } from "../utils/base64.ts";
 import StableDiffusionResult from "./StableDiffusionResult.ts";
-import { StableDiffusionApi } from "./StableDiffusionApi.ts";
-import { ApiRawResponse } from "../index.ts";
+import StableDiffusionApi from "./StableDiffusionApi.ts";
+import { ApiRawResponse } from "../types.ts";
 
 /**
  * @class ControlNetApi

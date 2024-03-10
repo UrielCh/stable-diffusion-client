@@ -11,11 +11,11 @@ export async function toBase64(
   image: Sharp,
   raw: boolean = false
 ): Promise<string> {
+  if (raw) {
+    const buffer = await image.raw().toBuffer();
+    return buffer.toString("base64");
+  }
   const header = "data:image/png;base64,";
-
-  const result = raw
-    ? (await image.raw().toBuffer()).toString("base64")
-    : header + (await image.png().toBuffer()).toString("base64");
-
-  return result;
+  const buffer = await image.png().toBuffer();
+  return header + buffer.toString("base64");
 }

@@ -1,5 +1,5 @@
-import ControlNetUnit from "../lib/ControlNetUnit.ts";
-import { Sharp } from "../deps.ts";
+import ControlNetUnit from "./lib/ControlNetUnit.ts";
+import { Sharp } from "./deps.ts";
 
 export type SamplerName =
   | "Euler a"

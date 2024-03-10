@@ -1,4 +1,4 @@
-import { ControlMode, ControlNetUnitConfig, ResizeMode } from "../types/index.ts";
+import { ControlMode, ControlNetUnitConfig, ResizeMode } from "../types.ts";
 import { toBase64 } from "../utils/base64.ts";
 
 /**

@@ -14,9 +14,8 @@ import {
   type StableDiffusionModel,
   type Txt2ImgOptions,
   type Upscaler,
-} from "../types/index.ts";
-import { Sharp, stringSimilarity } from "../deps.ts";
-import { encodeBase64 } from "https://deno.land/std@0.219.0/encoding/base64.ts";
+} from "../types.ts";
+import { Sharp, stringSimilarity, encodeBase64 } from "../deps.ts";
 import StableDiffusionResult from "./StableDiffusionResult.ts";
 import ControlNetApi from "./ControlNetApi.ts";
 import { toBase64 } from "../utils/base64.ts";
@@ -55,10 +54,12 @@ const createScriptsWithCnUnits = async (
  *   image.toFile(`result_${i}.png`)
  * })
  */
-export class StableDiffusionApi {
+export default class StableDiffusionApi {
   private config: StableDiffusionApiConfig;
   private baseURL: URL;
   private basicAuth = "";
+
+  public ControlNet = new ControlNetApi(this);
 
   public constructor({
     host = "127.0.0.1",
@@ -609,6 +610,4 @@ export class StableDiffusionApi {
       }, checkInterval * 1000);
     });
   }
-
-  public ControlNet = new ControlNetApi(this);
 }
