@@ -1,5 +1,5 @@
 import { decodeBase64, sharp } from "../deps.ts";
-import { ApiRawResponse } from "../mod.ts";
+import { ApiRawResponse } from "../../mod.ts";
 
 /**
  * @class StableDiffusionResult

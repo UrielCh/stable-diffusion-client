@@ -18,7 +18,7 @@ import {
 import { Sharp, stringSimilarity, encodeBase64 } from "../deps.ts";
 import StableDiffusionResult from "./StableDiffusionResult.ts";
 import ControlNetApi from "./ControlNetApi.ts";
-import { toBase64 } from "../utils/base64.ts";
+import { toBase64 } from "../utils.ts";
 import ControlNetUnit from "./ControlNetUnit.ts";
 
 const createScriptsWithCnUnits = async (

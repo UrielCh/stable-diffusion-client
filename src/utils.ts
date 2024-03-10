@@ -1,4 +1,4 @@
-import { type Sharp } from "../deps.ts";
+import { type Sharp } from "./deps.ts";
 
 /**
  * Converts an image buffer to base64

@@ -1,5 +1,5 @@
 import { ControlMode, ControlNetUnitConfig, ResizeMode } from "../types.ts";
-import { toBase64 } from "../utils/base64.ts";
+import { toBase64 } from "../utils.ts";
 
 /**
  * @class ControlNetUnit
