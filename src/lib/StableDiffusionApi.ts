@@ -1,19 +1,21 @@
-import {
+import type {
   Txt2ImgInfo,
-  type ApiRawResponse,
-  type ExtraBatchOptions,
-  type ExtraSingleOptions,
-  type FaceRestorer,
-  type HyperNetwork,
-  type Img2ImgOptions,
-  type Progress,
-  type PromptStyle,
-  type RealESRGanModel,
-  type Sampler,
-  type StableDiffusionApiConfig,
-  type StableDiffusionModel,
-  type Txt2ImgOptions,
-  type Upscaler,
+  ApiRawResponse,
+  ExtraBatchOptions,
+  ExtraSingleOptions,
+  FaceRestorer,
+  HyperNetwork,
+  Img2ImgOptions,
+  Progress,
+  PromptStyle,
+  RealESRGanModel,
+  Sampler,
+  StableDiffusionApiConfig,
+  StableDiffusionModel,
+  Txt2ImgOptions,
+  Upscaler,
+  CmdFlags,
+  SDOption,
 } from "../types.ts";
 import { Sharp, stringSimilarity, encodeBase64 } from "../deps.ts";
 import StableDiffusionResult from "./StableDiffusionResult.ts";
@@ -112,7 +114,7 @@ export default class StableDiffusionApi {
         "Content-Type": "application/json",
       },
     };
-    const promise = fetch(new URL(this.baseURL, uri), options);
+    const promise = fetch(new URL(uri, this.baseURL), options);
     const timeoutId = setTimeout(() => controller.abort(), this.config.timeout);
     const response = await promise;
     clearTimeout(timeoutId);
@@ -425,12 +427,12 @@ export default class StableDiffusionApi {
   }
 
   // TODO add other options
-  public async getOptions(): Promise<{sd_model_checkpoint?: string}> {
-    const response = await this.get<{sd_model_checkpoint?: string}>("/sdapi/v1/options");
+  public async getOptions(): Promise<SDOption> {
+    const response = await this.get<SDOption>("/sdapi/v1/options");
     return response;
   }
 
-  public async setOptions(options: any) {
+  public async setOptions(options: Partial<SDOption>) {
     const response = await this.post("/sdapi/v1/options", options);
     return response;
   }
@@ -453,8 +455,8 @@ export default class StableDiffusionApi {
    * Gets the list of command line flags that are available
    * @returns {Promise<Record<string, unknown>>} The list of command line flags that are available
    */
-  public async getCmdFlags(): Promise<Record<string, unknown>> {
-    const response = await this.get<Record<string, unknown>>(
+  public async getCmdFlags(): Promise<CmdFlags> {
+    const response = await this.get<CmdFlags>(
       "/sdapi/v1/cmd-flags",
     );
     return response;
