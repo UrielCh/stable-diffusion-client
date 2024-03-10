@@ -1,3 +1,4 @@
 npm
 deno.lock
 out
+node_modules/

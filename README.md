@@ -1,5 +1,11 @@
 # stable-diffusion-client
 
+The lib had beeen rewiten from the original lib: https://github.com/jaschahuisman/sd-api with some changes:
+- drop Axios, use fetch
+- Drop Buffer usage.
+- improve typing
+- lasy image processiog.
+
 [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) is a awesome, and you may want to integrate it right now to your Javascript projects.
 
 stable-diffusion-webui Client writen in Deno first.
