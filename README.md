@@ -25,7 +25,7 @@ API are disabled by default to enable APIs add in COMMANDLINE_ARGS:
 ## List available models
 
 ```ts
-import { StableDiffusionApi } from "https://cdn.jsdelivr.net/gh/UrielCh/stable-diffusion-client@48cfc853f075bdd7144a48238a3f937aeec9c05d/mod.ts";
+import { StableDiffusionApi } from "https://cdn.jsdelivr.net/gh/UrielCh/stable-diffusion-client@d3efc4b63edf731c9a0b9dcec41366e90fa6b9d4/mod.ts";
 import { * as pc } from 'https://deno.land/std@0.167.0/fmt/colors.ts';
 
 const SD = new StableDiffusionApi();
@@ -36,7 +36,7 @@ console.log(`${list.length} Models availables`);
 ## Start a txt2img generation using Helper
 
 ```ts
-import { StableDiffusionApi } from "https://cdn.jsdelivr.net/gh/UrielCh/stable-diffusion-client@48cfc853f075bdd7144a48238a3f937aeec9c05d/mod.ts";
+import { StableDiffusionApi } from "https://cdn.jsdelivr.net/gh/UrielCh/stable-diffusion-client@d3efc4b63edf731c9a0b9dcec41366e90fa6b9d4/mod.ts";
 const SD = new StableDiffusionApi({ timeout: 180_000 });
 
 const helper = new SDHelper('http://127.0.0.1:7860');
