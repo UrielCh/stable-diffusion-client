@@ -5,6 +5,7 @@ The library has been rewritten from the original library: [sd-api](https://githu
 - Drop Buffer usage
 - Improve typing
 - Lazy image processing
+- replace `string-similarity` by `fzf`
 
 [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) is awesome, and you may want to integrate it right now into your JavaScript projects.
 

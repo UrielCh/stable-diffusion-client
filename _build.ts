@@ -1,4 +1,4 @@
-import { build, emptyDir } from "https://deno.land/x/dnt@0.40.0/mod.ts";
+import { PackageJson, build, emptyDir } from "https://deno.land/x/dnt@0.40.0/mod.ts";
 // check version here: https://www.npmjs.com/package/@u4/chrome-remote-interface
 // deno run -A _build.ts 0.4.8; 
 // cd npm; npm publish;
@@ -7,12 +7,41 @@ if (!Deno.args[0]) {
     Deno.exit(-1);
 }
 
+
+const packageJson: PackageJson = {
+    name: "stable-diffusion-client",
+    author: "Uriel chemouni <uchemouni@gmail.com>",
+    license: "MIT",
+    contributors: [
+        "Uriel chemouni <uchemouni@gmail.com>",
+    ],
+    description: "smart stable-diffusion-webui client",
+    keywords: [
+        "stable-diffusion-webui",
+        "deno",
+        "typescript",
+    ],
+    homepage: "https://github.com/UrielCh/stable-diffusion-client",
+    version: Deno.args[0],
+    repository: {
+        type: "git",
+        url: "git+https://github.com/UrielCh/stable-diffusion-client.git",
+    },
+    bugs: {
+        url: "http://github.com/UrielCh/stable-diffusion-client/issues",
+    },
+    "engine-strict": {
+        node: ">=14"
+    }
+};
+
 try {
     await emptyDir("./npm");
 
     await build({
         entryPoints: ["./mod.ts"],
         outDir: "./npm",
+        test: false,
         shims: {
             // see JS docs for overview and more options
             deno: true,
@@ -30,33 +59,7 @@ try {
         compilerOptions: {
             lib: ["DOM", "ESNext"],
         },
-        package: {
-            // package.json properties
-            name: "stable-diffusion-client",
-            author: "Uriel chemouni <uchemouni@gmail.com>",
-            license: "MIT",
-            contributors: [
-                "Uriel chemouni <uchemouni@gmail.com>",
-            ],
-            description: "smart stable-diffusion-webui client",
-            keywords: [
-                "stable-diffusion-webui",
-                "deno",
-                "typescript",
-            ],
-            homepage: "https://github.com/UrielCh/stable-diffusion-client",
-            version: Deno.args[0],
-            repository: {
-                type: "git",
-                url: "git+https://github.com/UrielCh/stable-diffusion-client.git",
-            },
-            bugs: {
-                url: "http://github.com/UrielCh/stable-diffusion-client/issues",
-            },
-            "engine-strict": {
-                node: ">=14"
-            },
-        },
+        package: packageJson,
     });
 
     // post build steps

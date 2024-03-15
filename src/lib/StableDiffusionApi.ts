@@ -17,7 +17,7 @@ import type {
   CmdFlags,
   SDOption,
 } from "../types.ts";
-import { Sharp, stringSimilarity, encodeBase64 } from "../deps.ts";
+import { Sharp, Fzf, encodeBase64 } from "../deps.ts";
 import StableDiffusionResult from "./StableDiffusionResult.ts";
 import ControlNetApi from "./ControlNetApi.ts";
 import { toBase64 } from "../utils.ts";
@@ -119,7 +119,7 @@ export default class StableDiffusionApi {
     const response = await promise;
     clearTimeout(timeoutId);
     // TODO handle error
-    return response.json();
+    return response.json() as T;
   }
 
   public async post<T>(uri: string, body?: unknown): Promise<T> {
@@ -145,7 +145,7 @@ export default class StableDiffusionApi {
     const response = await promise;
     clearTimeout(timeoutId);
     // TODO handle error
-    return response.json();
+    return response.json() as T;
   }
 
   /**
@@ -570,10 +570,10 @@ export default class StableDiffusionApi {
     if (modelNames.includes(name)) {
       foundModel = name;
     } else if (findClosest) {
-      const bestMatch = stringSimilarity.findBestMatch(name, modelNames);
-
-      if (bestMatch.bestMatch.rating > 0.5) {
-        foundModel = bestMatch.bestMatch.target;
+      const fzf = new Fzf(modelNames);
+      const [bestMatch] = fzf.find(name);
+      if (bestMatch && bestMatch.score > 0.5) {
+        foundModel = bestMatch.item;
       }
     }
 
